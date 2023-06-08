@@ -5,6 +5,11 @@ JOB_TYPE = (
     ('Part Time', 'Part Time'),
 )
 
+def image_upload(instance,filename):
+    imagename,extension = filename.split('.')
+    print(instance)
+    return 'jobs/%s.%s' % (instance.id,extension)
+
 # Create your models here.
 class job(models.Model):
     title = models.CharField(max_length=100) # this is cloumn 
@@ -15,6 +20,7 @@ class job(models.Model):
     salary = models.IntegerField(default=0) 
     exprience = models.IntegerField(default=1)
     category = models.ForeignKey('Category',on_delete=models.CASCADE)#coment it first //run mkmigrations //add in db // uncomment this line //mkmigrations
+    images = models.ImageField(upload_to=image_upload)
 
     def __str__(self):
         return self.title
