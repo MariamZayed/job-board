@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 JOB_TYPE = (
     ('Full Time', 'Full Time'),
@@ -21,6 +22,12 @@ class job(models.Model):
     exprience = models.IntegerField(default=1)
     category = models.ForeignKey('Category',on_delete=models.CASCADE)#coment it first //run mkmigrations //add in db // uncomment this line //mkmigrations
     images = models.ImageField(upload_to=image_upload)
+    slug = models.SlugField( blank=True, null=True) # we made it that way as when we hit the save button in admin dashboard it would create slug automatically
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)# remove spaces
+        super(job, self).save(*args, **kwargs) # save old instance with new instance(slug which already motified x)
+
 
     def __str__(self):
         return self.title
