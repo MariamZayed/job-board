@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User 
 
 JOB_TYPE = (
     ('Full Time', 'Full Time'),
@@ -8,7 +9,6 @@ JOB_TYPE = (
 
 def image_upload(instance,filename):
     imagename,extension = filename.split('.')
-    print(instance)
     return 'jobs/%s.%s' % (instance.id,extension)
 
 # Create your models here.
@@ -23,6 +23,7 @@ class job(models.Model):
     category = models.ForeignKey('Category',on_delete=models.CASCADE)#coment it first //run mkmigrations //add in db // uncomment this line //mkmigrations
     images = models.ImageField(upload_to=image_upload)
     slug = models.SlugField( blank=True, null=True) # we made it that way as when we hit the save button in admin dashboard it would create slug automatically
+    owner = models.ForeignKey(User, related_name='job_owner', on_delete=models.CASCADE,)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)# remove spaces
