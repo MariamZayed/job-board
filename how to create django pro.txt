@@ -1,0 +1,53 @@
+1- virtualenv -p python3.8 job-board
+2- pip install django
+3- django-admin startproject project .
+4- python manage.py runserver
+5- source bin/activate
+6- python manage.py startapp job
+7- python manage.py migrate
+http://127.0.0.1:8000/admin
+--------------
+* first time model and ForeignKey 
+1- create fields in model
+2- python manage.py makemigrations -> command to check if syntax in model.py is correct 
+3- python manage.py migrate ->to make tables in DBs
+4- go to app job and add job model
+from .models import job
+admin.site.register(job)
+
+B- another model in same models file (ForeignKey)
+1- create model
+2- create mkmigrations and migrate 
+3- add data to table from website
+4- add ForeignKey column in model 1
+5- create mkmigrations and migrate (will add 1 to second step in migrate to refer to id 1)
+
+------------------
+*front
+1- add static folder (has img, fonts, js,css)
+2- go to settings and add static url and media url
+	STATIC_URL = '/static/'
+	STATICFILES_DIRS =[
+	    os.path.join(BASE_DIR,"static"),
+	    'var/www/static',
+	]
+	MEDIA_URL = '/media/'
+	MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+3- go to main urls and add url import and urlpatterns
+	from django.conf import settings
+	from django.conf.urls.static import static
+
+	urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+	urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+4- go to your app template html files and link your load static 
+	{% load static %}
+    	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+----------------
+* Handling images
+1- python -m pip install Pillow
+
+
+
+django queryset
