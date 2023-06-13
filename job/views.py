@@ -3,14 +3,22 @@ from .models import job
 from django.core.paginator import Paginator
 from .form import ApplyForm , JobForm
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from .filters import JobFilter
 
 # Create your views here.
 def job_list(request):
     job_list = job.objects.all()
+
+    #filter # we use filter first before pagination as to pagination works on the filter too
+    job_filter = JobFilter(request.GET, queryset= job_list) # filter would get his data to filter on from request.GET, cause we send filter fields by get method from the form # queryset means that im giving him instance from database to filter and search on it
+    job_list = job_filter.qs  # we're now overriding job_list to show them in paginator #After the JobFilter instance has been created, you access the filtered queryset using the .qs
+
+    # pagination
     paginator = Paginator(job_list,3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'jobs':page_obj} #this is template name
+    context = {'jobs':page_obj, 'job_filter':job_filter} #this is template name
     return render(request, 'job/job_list.html', context)
 
 def job_detail(request, slug):
@@ -30,7 +38,7 @@ def job_detail(request, slug):
     context = {'job':job_detail, 'form1':form}
     return render(request, 'job/job_detail.html', context)
 
-
+@login_required
 def add_job(request):
     if request.method=='POST':
         form = JobForm(request.POST, request.FILES)   
