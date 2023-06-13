@@ -14,7 +14,7 @@ def job_list(request):
     return render(request, 'job/job_list.html', context)
 
 def job_detail(request, slug):
-    job_detail = job.objects.get(slug=slug) #get job name
+    job_detail = job.objects.get(slug=slug) #get job name , from job model return object form it where we want slug field
 
     if request.method=='POST':
         form = ApplyForm(request.POST, request.FILES) #if we're sending files dont forget to put request.FILES

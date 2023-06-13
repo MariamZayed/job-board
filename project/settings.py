@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts', # put it first before admin as to login as whatever
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

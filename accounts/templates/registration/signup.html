@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %} <!-- how did he know the fields in the login -->
+    <input type="submit" value="signup" class="boxed-btn3 w-100">
+</form>
+
+
+{% endblock %}
