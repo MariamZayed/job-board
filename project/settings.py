@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     #my apps
     'job',
     'contact',
+    'home',
     'bootstrap4',
     'rest_framework',
     'django_filters', #https://github.com/carltongibson/django-filter
@@ -146,3 +147,5 @@ EMAIL_HOST_USER =  'iti.mans.projects@gmail.com'
 EMAIL_HOST_PASSWORD = 'bjgrquoisozvnwwn'
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"   
+
+LOGIN_REDIRECT_URL = '/'  # django authentication puts redirect to accounts/profile/ so I made this refactor to redirect to home page

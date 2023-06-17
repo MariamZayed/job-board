@@ -4,6 +4,9 @@ from django.contrib.auth import authenticate,login
 from . models import Profile
 from .forms import UserForm, ProfileForm
 from django.urls import reverse
+from django.contrib.auth.views import LoginView
+# from django.contrib.auth.decorators import login_required
+# @login_required(login_url='home') # Redirect to home page if user is authenticated
 
 
 # Create your views here.
@@ -16,9 +19,12 @@ def signup(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request,user)
-            return redirect('accounts/profile')
+            home_url = reverse('home:home')
+            return redirect(home_url) 
     else:
         form = SignupForm() 
+        home_url = reverse('home:home')
+        return redirect(home_url) 
     return render(request, 'registration/signup.html', {'form': form})
 
 def profile(request):
@@ -41,3 +47,16 @@ def profile_edit(request):
         profile_form = ProfileForm(instance=profile)
 
     return render(request, 'accounts/profile_edit.html', {'user_form': user_form, 'profile_form': profile_form})
+
+# class CustomLoginView(LoginView):
+#     @staticmethod
+#     def redirect_authenticated_user(request):
+#         if request.user.is_authenticated:
+#             home_url = reverse('home:home')
+#             return redirect(home_url)   # Redirect to the home page or any other desired page
+#         else:
+#             return super().dispatch(request, *args, **kwargs)
+
+# @login_required(login_url='home:home')
+# def login(request): #this is a custom method to login
+#     return redirect('home:home')

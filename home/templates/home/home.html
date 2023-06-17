@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<!-- slider_area_start -->
+<div class="slider_area">
+    <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider_text text-center">
+                        <h3>Find Your Dream Job</h3>
+                        <p>Discover thousands of job opportunities</p>
+                        <div class="job_btn">
+                            <a href="{% url 'jobs:job_list' %}" class="boxed-btn3">Browse Jobs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider_area_end -->
+
+<!-- about_area_start -->
+<div class="about_area mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_title text-center m-5">
+                    <h3>Discover Your Career Path</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="card mb-3 border-0">
+                    <div class="card-body">
+                        <h4 class="card-title font-weight-bold">Search and Apply</h4>
+                        <p class="card-text">Find your desired job and apply for it easily. Browse through thousands of job listings and discover new career opportunities.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title font-weight-bold">Hire Top Talent</h4>
+                        <p class="card-text">If you are an employer, post your job openings and attract top talent from our pool of qualified candidates. Find the perfect fit for your organization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- about_area_end -->
+
+<!-- job_listing_area_start -->
+<div class="job_listing_area plus_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_title text-center mb-5">
+                    <h2>Recent Jobs</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for job in recent_jobs %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="{% url 'jobs:job_detail' job.slug %}">{{ job.title }}</a></h4>
+                        <p class="card-text">{{ job.owner.username }}</p>
+                        <hr>
+                        <p class="card-text">Location: Job Location</p>
+                        <p class="card-text">Job Type: {{ job.job_type }}</p>
+                        <a href="#" class="btn btn-primary">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<!-- job_listing_area_end -->
+
+{% endblock body %}
