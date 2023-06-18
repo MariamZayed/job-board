@@ -7,7 +7,14 @@ from django.urls import reverse
 from django.contrib.auth.views import LoginView
 # from django.contrib.auth.decorators import login_required
 # @login_required(login_url='home') # Redirect to home page if user is authenticated
+from django.http import HttpResponse
 
+def hello_world(request):
+    print("Hello World")
+    print("Hello World")
+    print("Hello World")
+    message = 'Hello World'
+    return HttpResponse(message)
 
 # Create your views here.
 def signup(request):
@@ -48,14 +55,15 @@ def profile_edit(request):
 
     return render(request, 'accounts/profile_edit.html', {'user_form': user_form, 'profile_form': profile_form})
 
-# class CustomLoginView(LoginView):
-#     @staticmethod
-#     def redirect_authenticated_user(request):
-#         if request.user.is_authenticated:
-#             home_url = reverse('home:home')
-#             return redirect(home_url)   # Redirect to the home page or any other desired page
-#         else:
-#             return super().dispatch(request, *args, **kwargs)
+
+class CustomLoginView(LoginView):
+
+    @staticmethod
+    def redirect_authenticated_user(request):
+        if request.user.is_authenticated:
+            return redirect('home:home')  # Redirect to the home page or any other desired page
+        else:
+            return super().dispatch(request, *args, **kwargs)
 
 # @login_required(login_url='home:home')
 # def login(request): #this is a custom method to login
