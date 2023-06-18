@@ -2,13 +2,13 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from accounts import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/login/', views.CustomLoginView.as_view(redirect_authenticated_user=True), name='custom-login'),
     path('accounts/',include('django.contrib.auth.urls')),
-    path('login/', include('accounts.urls', namespace='accounts')),
-    path('accounts/',include('accounts.urls', namespace='accounts')),# روح عشان السين اب
+    path('accounts/',include('accounts.urls', namespace='accounts')),
     path('jobs/', include('job.urls', namespace='jobs')),
     path('contact-us/', include('contact.urls', namespace='contact')),
     path('', include('home.urls', namespace='home')),

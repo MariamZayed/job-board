@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+<!-- slider_area_start -->
+<div class="slider_area">
+    <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider_text text-center">
+                        <h3>Find Your Dream Job</h3>
+                        <p>Discover thousands of job opportunities</p>
+                        <div class="job_btn">
+                            <a href="{% url 'jobs:job_list' %}" class="boxed-btn3">Browse Jobs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider_area_end -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1 class="mt-4 mb-4">Filtered Job List</h1>
+            </div>
+        </div>
+
+        {% if jobs %}
+            <div class="row">
+                {% for job in jobs %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ job.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
+                                <p class="card-text">{{ job.description }}</p>
+                                <a href="{% url 'jobs:job_detail' job.id %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No jobs found.</p>
+        {% endif %}
+    </div>
+
+{% endblock body %}

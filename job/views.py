@@ -53,3 +53,13 @@ def add_job(request):
         form =  JobForm()   
 
     return render(request, 'job/add_job.html',{'form':form}) # we're sending form from the else statement or first one in if statement 
+
+def filtered_job_list(request, category_name):
+    jobs = job.objects.filter(category__name=category_name)
+
+    # Other logic for pagination or additional filtering if needed
+
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'job/filtered_job_list.html', context)

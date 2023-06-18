@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>{{jobs.count}}+ Jobs Available</h3>
+                        <h3>{{jobs.paginator.count}}+ Jobs Available</h3>
                     </div>
                 </div>
             </div>
@@ -57,31 +57,32 @@
                                             <img src="img/svg_icon/1.svg" alt="">
                                         </div>
                                         <div class="jobs_conetent">
-                                            <a href="{% url 'jobs:job_detail' job.slug %}"><h4>{{job}}</h4></a>
-                                            <div class="links_locat d-flex align-items-center">
-                                                <div class="location">
-                                                    <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                                </div>
-                                                <div class="location">
-                                                    <p> <i class="fa fa-clock-o"></i>{{job.job_type}}</p>
-                                                </div>
-                                            </div>
+                                            <a href="{% url 'jobs:job_detail' job.slug %}">
+                                                <h4>{{ job }}</h4>
+                                                <p class="job_info">
+                                                    <i class="fa fa-map-marker pr-1"></i><span class="pr-3">California, USA</span>
+                                                    <i class="fa fa-clock-o pr-1"></i><span class="pr-3">{{ job.job_type }}</span>
+                                                    <i class="fa fa-square-o pr-2"></i><span class="pr-3">{{ job.category }}</span>
+                                                </p>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="jobs_right">
                                         <div class="apply_now">
-                                            <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a>
+                                            <a class="heart_mark" href="#"><i class="fa fa-heart"></i></a>
                                             <a href="{% url 'jobs:job_detail' job.slug %}" class="boxed-btn3">Apply Now</a>
                                         </div>
                                         <div class="date">
-                                            <p>Date line: {{job.published_at | date:'d M o'}}</p>
+                                            <p>Date line: {{ job.published_at | date:'d M o' }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
-
+                    </div>
+                    
+                    
                         {% if jobs.has_other_pages %}
                         <div class="row">
                             <div class="col-lg-12">

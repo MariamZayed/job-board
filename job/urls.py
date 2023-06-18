@@ -7,6 +7,8 @@ urlpatterns = [
     path('',views.job_list, name='job_list'),
     path('add-job',views.add_job, name='add_job'), #put string url before parameter routes
     path('<str:slug>',views.job_detail, name='job_detail'),
+    path('jobs/category/<str:category_name>/', views.filtered_job_list, name='filtered_job_list'),
+
 
     ##api
     path('api/jobs',api.jobListAPI, name='jobListAPI'),

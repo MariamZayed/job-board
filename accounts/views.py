@@ -5,8 +5,6 @@ from . models import Profile
 from .forms import UserForm, ProfileForm
 from django.urls import reverse
 from django.contrib.auth.views import LoginView
-# from django.contrib.auth.decorators import login_required
-# @login_required(login_url='home') # Redirect to home page if user is authenticated
 from django.http import HttpResponse
 
 def hello_world(request):
@@ -18,20 +16,22 @@ def hello_world(request):
 
 # Create your views here.
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home:home')
+    
     if request.method == 'POST':
-        form = SignupForm(request.POST)# request.POST means take data which came from POST form 
+        form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
-            login(request,user)
+            login(request, user)
             home_url = reverse('home:home')
-            return redirect(home_url) 
+            return redirect(home_url)
     else:
-        form = SignupForm() 
-        home_url = reverse('home:home')
-        return redirect(home_url) 
+        form = SignupForm()
+
     return render(request, 'registration/signup.html', {'form': form})
 
 def profile(request):
@@ -55,16 +55,10 @@ def profile_edit(request):
 
     return render(request, 'accounts/profile_edit.html', {'user_form': user_form, 'profile_form': profile_form})
 
-
 class CustomLoginView(LoginView):
-
     @staticmethod
     def redirect_authenticated_user(request):
         if request.user.is_authenticated:
             return redirect('home:home')  # Redirect to the home page or any other desired page
         else:
             return super().dispatch(request, *args, **kwargs)
-
-# @login_required(login_url='home:home')
-# def login(request): #this is a custom method to login
-#     return redirect('home:home')
