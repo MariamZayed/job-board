@@ -34,6 +34,7 @@ class job(models.Model):
         if not self.address:  # Generate random address if not provided
             origins = ['ar_SA', 'en_US', 'ar_EG']  # List of origins or locales
             origin = random.choice(origins)
+            fake = Faker(origin)
             city = fake.city()
             country = fake.country()
             self.address = f'{city}, {country}'
