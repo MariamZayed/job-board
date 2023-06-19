@@ -18,7 +18,7 @@ def image_upload(instance,filename):
 class job(models.Model):
     title = models.CharField(max_length=100) # this is cloumn 
     job_type = models.CharField(max_length=20,choices=JOB_TYPE)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=10000)
     published_at = models.DateTimeField(auto_now=True)
     vacancy = models.IntegerField(default=1)
     salary = models.IntegerField(default=0) 

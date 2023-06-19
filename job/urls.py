@@ -16,5 +16,7 @@ urlpatterns = [
 
     # Generic views 
     path('api/v2/jobs',api.JobListAPI.as_view(), name='JobListAPI'),# we put as_view to represent it as function cause without it it's a class 
-
+    path('api/v2/add-job',api.AddJobAPI.as_view(), name='AddJobAPI'),
+    path('api/v2/<str:slug>',api.JobDetailAPI.as_view(), name='AddJobAPI'),
+    path('api/v2/category/<str:category_name>',api.FilteredJobListAPI.as_view(), name='FilteredJobListAPI'),
 ]
