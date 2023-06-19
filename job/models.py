@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User 
+from faker import Faker # fake address
+fake = Faker()
+import random
 
 JOB_TYPE = (
     ('Full Time', 'Full Time'),
@@ -24,11 +27,21 @@ class job(models.Model):
     images = models.ImageField(upload_to=image_upload)
     slug = models.SlugField( blank=True, null=True) # we made it that way as when we hit the save button in admin dashboard it would create slug automatically
     owner = models.ForeignKey(User, related_name='job_owner', on_delete=models.CASCADE,)
+    address = models.CharField(max_length=255, blank=True, null=True)
+
 
     def save(self, *args, **kwargs):
+        if not self.address:  # Generate random address if not provided
+            origins = ['ar_SA', 'en_US', 'ar_EG']  # List of origins or locales
+            origin = random.choice(origins)
+            city = fake.city()
+            country = fake.country()
+            self.address = f'{city}, {country}'
+
+
         self.slug = slugify(self.title)# remove spaces
         super(job, self).save(*args, **kwargs) # save old instance with new instance(slug which already motified x)
-
+        
 
     def __str__(self):
         return self.title

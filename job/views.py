@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .filters import JobFilter
 
+
 # Create your views here.
 def job_list(request):
     job_list = job.objects.all()
@@ -18,6 +19,7 @@ def job_list(request):
     paginator = Paginator(job_list,3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
     context = {'jobs':page_obj, 'job_filter':job_filter} #this is template name
     return render(request, 'job/job_list.html', context)
 

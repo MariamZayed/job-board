@@ -60,9 +60,9 @@
                                             <a href="{% url 'jobs:job_detail' job.slug %}">
                                                 <h4>{{ job }}</h4>
                                                 <p class="job_info">
-                                                    <i class="fa fa-map-marker pr-1"></i><span class="pr-3">California, USA</span>
-                                                    <i class="fa fa-clock-o pr-1"></i><span class="pr-3">{{ job.job_type }}</span>
-                                                    <i class="fa fa-square-o pr-2"></i><span class="pr-3">{{ job.category }}</span>
+                                                    <i class="fa fa-map-marker pr-1"></i><span class="pr-1">{{job.address}}</span>
+                                                    <i class="fa fa-clock-o pr-1"></i><span class="pr-1">{{ job.job_type }}</span>
+                                                    <i class="fa fa-square-o pr-2"></i><span class="pr-1">{{ job.category }}</span>
                                                 </p>
                                             </a>
                                         </div>
