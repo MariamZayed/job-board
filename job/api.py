@@ -18,7 +18,7 @@ def jobDetail(request, job_id):
 
 
 # Generic view #https://www.django-rest-framework.org/api-guide/generic-views/#examples
-class JobListAPI(generics.ListAPIView):
+class JobListAPI(generics.ListAPIView):#retrieving a multiple object.
     queryset = job.objects.all()
     serializer_class = JobSerializer
 
