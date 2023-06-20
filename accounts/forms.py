@@ -6,7 +6,7 @@ from .models import Profile
 class SignupForm(UserCreationForm):#UserCreationForm not modle.ModelForm becuase we need encription for password, modle.ModelForm for normal forms
     class Meta:
         model= User
-        fields = ['username', 'password1', 'password2', 'email']
+        fields = ['username', 'password1', 'password2', 'email'] #اما اجي اعمل سين اب هعمل بالبيانات ديه بس, ولما يتسجل يبقى يروح على البروبافيل بتاعه يزود بيانات براحته الي هما تحت
 
 class UserForm(forms.ModelForm):
     class Meta:
