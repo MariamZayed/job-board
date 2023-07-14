@@ -2,7 +2,7 @@ from .models import job , Category
 from .serializers import JobSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics,  permissions
 
 @api_view()
 def jobListAPI(request):
@@ -24,6 +24,8 @@ class JobListAPI(generics.ListAPIView):#retrieving a multiple object.
 
 class AddJobAPI(generics.CreateAPIView):# generic view for creating objects.
     serializer_class = JobSerializer
+    permission_classes = [permissions.IsAuthenticated]  # Require authentication for all users
+
 
 class JobDetailAPI(generics.RetrieveAPIView):# RetrieveAPIView : which is a generic view for retrieving a single object.
     queryset = job.objects.all()
